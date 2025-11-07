@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skin Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <style>
+  html, body {
+  overflow-x: hidden;
+}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode {
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+
+    @keyframes slide { 0% { left: -100%; } 100% { left: 100%; } }
+    
+    .banner-container {
+      width: 100%; background-color: #1E90FF; height: 40px;
+      position: relative; overflow: hidden;
+    }
+
+    .dark-mode .banner-container {
+      background-color: #0d6efd;
+    }
+    
+    .footer-brand {
+  font-weight: bold;
+  font-size: 18px;
+}
+.ml-blue {
+  color: #1E90FF;
+}
+
+.dark-mode .ml-blue {
+  color: #4da8ff;
+}
+    
+    .moving-text {
+      position: absolute; white-space: nowrap;
+      font-size: 18px; font-weight: bold; color: white;
+      top: 10px; left: 0;
+      animation: slide 12s linear infinite alternate;
+    }
+    
+    .header {
+      background-color: #fff; border-bottom: 1px solid #ddd;
+      padding: 10px 15px 5px; display: flex; flex-direction: column;
+      position: relative; z-index: 100;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .dark-mode .header {
+      background-color: #2d2d2d;
+      border-bottom-color: #444;
+    }
+    
+    .header-top {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+    }
+    
+    .logo img {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+    }
+    
+    .title {
+      font-weight: bold; font-size: 18px; margin-left: 10px;
+    }
+    
+    .hamburger {
+      width: 25px; height: 18px; display: flex; flex-direction: column;
+      justify-content: space-between; cursor: pointer; z-index: 200;
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+    }
+    
+    .hamburger span {
+      display: block; height: 3px; background-color: #333;
+      border-radius: 2px; transition: all 0.3s ease;
+    }
+
+    .dark-mode .hamburger span {
+      background-color: #fff;
+    }
+
+    /* Animasi hamburger saat aktif */
+    .hamburger.active {
+      transform: rotate(180deg);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg) scaleX(1.1);
+      background-color: #1E90FF;
+    }
+
+    .hamburger.active span:nth-child(2) { 
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg) scaleX(1.1);
+      background-color: #1E90FF;
+    }
+
+    /* Efek hover pada hamburger */
+    .hamburger:hover span {
+      background-color: #1E90FF;
+    }
+
+    .hamburger.active:hover span {
+      background-color: #0d6efd;
+    }
+    
+    .menu {
+      display: none; position: absolute; top: 100%; right: 15px;
+      background: white; border: 1px solid #ddd;
+      border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      opacity: 0; transform: translateY(-10px); transition: all 0.3s ease;
+      z-index: 99;
+    }
+
+    .dark-mode .menu {
+      background-color: #2d2d2d;
+      border-color: #444;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    
+    .menu.show {
+      display: block; opacity: 1; transform: translateY(0);
+    }
+    
+    .menu a {
+      display: block; padding: 10px 15px;
+      color: #333; text-decoration: none;
+      border-bottom: 1px solid #eee;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .dark-mode .menu a {
+      color: #fff;
+      border-bottom-color: #444;
+    }
+
+    .menu a:last-child {
+      border-bottom: none;
+    }
+    
+    .menu a:hover { 
+      background-color: #1E90FF; 
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .dark-mode .menu a:hover {
+      background-color: #0d6efd;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode .theme-toggle {
+      border-bottom-color: #444;
+    }
+
+    .theme-toggle:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dark-mode .theme-toggle:hover {
+      background-color: #3d3d3d;
+    }
+
+    .theme-toggle:last-child {
+      border-bottom: none;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 50px;
+      height: 24px;
+      background-color: #ccc;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      margin-right: 0;
+    }
+
+    .dark-mode .theme-switch {
+      background-color: #4da6ff;
+    }
+
+    .theme-switch-handle {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .dark-mode .theme-switch-handle {
+      left: 28px;
+      transform: rotate(360deg);
+    }
+
+    .theme-icon {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-icon svg {
+      transition: all 0.3s ease;
+      width: 12px;
+      height: 12px;
+    }
+
+    .sun-icon {
+      color: #ffa500;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .dark-mode .sun-icon {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .moon-icon {
+      color: #4da6ff;
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .dark-mode .moon-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .search-container {
+      text-align: center; padding: 10px 0 5px;
+      font-style: italic; color: red;
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .search-container input[type="text"] {
+      width: 220px; padding: 6px 40px 6px 15px; font-size: 14px; 
+      border: 1px solid #ccc; border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .search-container input[type="text"] {
+      background-color: #3d3d3d;
+      border-color: #666;
+      color: #fff;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      color: #666;
+      transition: color 0.3s ease;
+    }
+
+    .dark-mode .search-icon {
+      color: #aaa;
+    }
+
+    .search-icon:hover {
+      color: #1E90FF;
+    }
+    
+    /* ANIMASI TOMBOL DOWNLOAD YANG DIPERBAIKI */
+    .download-btn {
+      border: 1.5px solid #1E90FF; 
+      color: #1E90FF;
+      padding: 8px 20px; 
+      border-radius: 25px; 
+      font-weight: 600;
+      text-decoration: none; 
+      background-color: white;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.2);
+      font-size: 14px;
+      min-width: 120px;
+    }
+
+    .dark-mode .download-btn {
+      background-color: #2d2d2d;
+      color: #4da8ff;
+      border-color: #4da8ff;
+      box-shadow: 0 4px 15px rgba(77, 168, 255, 0.2);
+    }
+    
+    .download-btn:hover {
+      background: linear-gradient(135deg, #1E90FF 0%, #0d6efd 100%);
+      color: white;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(30, 144, 255, 0.4);
+      border-color: transparent;
+    }
+
+    .dark-mode .download-btn:hover {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+      box-shadow: 0 8px 25px rgba(77, 168, 255, 0.4);
+    }
+
+    /* Efek shimmer pada hover */
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .download-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Animasi klik */
+    .download-btn:active {
+      transform: translateY(-1px) scale(1.02);
+      transition: transform 0.1s ease;
+    }
+
+    /* Icon check animasi */
+    .download-btn .check-icon {
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .download-btn.downloading .check-icon {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    /* Animasi teks berubah */
+    .download-btn .download-text {
+      transition: all 0.3s ease;
+    }
+
+    .download-btn.downloading .download-text {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+
+    .download-btn .success-text {
+      position: absolute;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+    }
+
+    .download-btn.downloading .success-text {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Pulse animation untuk tombol download */
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(30, 144, 255, 0.6);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+      }
+    }
+
+    .download-btn.pulse {
+      animation: pulseGlow 2s infinite;
+    }
+
+    .dark-mode .download-btn.pulse {
+      animation: pulseGlowDark 2s infinite;
+    }
+
+    @keyframes pulseGlowDark {
+      0% {
+        box-shadow: 0 4px 15px rgba(77, 168, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(77, 168, 255, 0.6);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(77, 168, 255, 0.3);
+      }
+    }
+
+    /* Loading animation */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .download-btn.loading .download-text::after {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+    }
+
+    /* ========== FOOTER REDESIGN ========== */
+    footer {
+      background: linear-gradient(135deg, #1E90FF 0%, #0d6efd 100%);
+      padding: 50px 20px 20px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark-mode footer {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    }
+
+    /* Background pattern */
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="20" cy="20" r="2" fill="white"/><circle cx="50" cy="30" r="1.5" fill="white"/><circle cx="80" cy="20" r="1" fill="white"/><circle cx="30" cy="70" r="1.5" fill="white"/><circle cx="70" cy="80" r="2" fill="white"/></svg>');
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      100% { transform: translateY(-100px) translateX(50px); }
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 3px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .footer-logo:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .footer-desc {
+      margin-bottom: 25px;
+      line-height: 1.6;
+      opacity: 0.9;
+      max-width: 300px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .social-link:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-links a::before {
+      content: '▸';
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover::before {
+      opacity: 1;
+    }
+
+    .support-section {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .support-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .support-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .support-link:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .support-link img {
+      width: 30px;
+      height: 30px;
+      margin-right: 12px;
+      object-fit: contain;
+    }
+
+    .support-link span {
+      font-weight: 500;
+    }
+
+    .footer-bottom {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-copy {
+      opacity: 0.7;
+      font-size: 14px;
+    }
+
+    /* Responsive Footer */
+    @media (max-width: 768px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .footer-column h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .footer-logo {
+        justify-content: center;
+      }
+
+      .footer-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .footer-links a:hover {
+        transform: none;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+    }
+
+    table {
+      width: 100%; max-width: 800px; margin: 0 auto; 
+      border-collapse: collapse; font-size: 15px;
+    }
+    
+    th {
+      text-align: left; padding: 14px 20px; background-color: #f2f2f2;
+    }
+
+    .dark-mode th {
+      background-color: #3d3d3d;
+      color: #fff;
+    }
+    
+    th:last-child {
+      text-align: center;
+    }
+    
+    td {
+      padding: 16px 20px; border-bottom: 1px solid #eee;
+    }
+
+    .dark-mode td {
+      border-bottom-color: #444;
+      color: #fff;
+    }
+    
+    td:last-child {
+      text-align: center;
+    }
+
+    /* Dark mode untuk konten skin */
+    .dark-mode #skin-content {
+      color: #fff;
+    }
+
+    .dark-mode #skin-content .download-btn {
+      background-color: #2d2d2d;
+      color: #4da8ff;
+      border-color: #4da8ff;
+    }
+
+    .dark-mode #skin-content .download-btn:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner-container">
+    <div class="moving-text">SELAMAT DATANG!</div>
+  </div>
+  
+  <div class="header">
+    <div class="header-top">
+      <div style="display: flex; align-items: center;">
+        <div class="logo"><img src="https://ik.imagekit.io/Schwanzml2/4e31c570c83f8efa1921e641afcf5342.jpg?updatedAt=1757980564561" alt="Logo"></div>
+        <div class="title">Schwanz <span style="color:#1E90FF">ML</span></div>
+      </div>
+      <div class="hamburger" onclick="toggleMenu(this)">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    
+    <div class="search-container" style="text-align: center; padding: 10px;">
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" placeholder="⌕ Cari skin disini..." onkeypress="handleKeyPress(event)" style="width: 220px; padding: 6px 40px 6px 15px; font-size: 14px; border: 1px solid #ccc; border-radius: 20px;">
+        <div class="search-icon" onclick="performSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="category.html">Category</a>
+      <a href="social.html">Social</a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="theme-switch">
+          <div class="theme-switch-handle">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="skin-content" style="max-width: 1500px; margin: 0 auto; padding: 20px;"></div>
+  <div id="search-results" style="max-width: 1500px; margin: 0 auto; padding: 20px;"></div>
+
+  <footer>
+    <div class="footer-content">
+      <!-- Brand Section -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="https://ik.imagekit.io/Schwanzml2/4e31c570c83f8efa1921e641afcf5342.jpg?updatedAt=1757980564561" alt="Logo">
+          <div class="footer-logo-text">Schwanz ML</div>
+        </div>
+        <p class="footer-desc">
+          Portal terbaik untuk informasi skin Mobile Legends. Dapatkan update terbaru, tips, dan trik untuk gameplay yang lebih maksimal.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 16.892c-2.102.144-6.784.144-8.883 0C5.282 16.736 5.017 15.622 5 12c.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0C18.718 7.264 18.982 8.378 19 12c-.018 3.629-.285 4.736-2.559 4.892zM10 9.658l4.917 2.338L10 14.342V9.658z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html">Category</a></li>
+          <li><a href="social.html">Social Media</a></li>
+          <li><a href="allhero.html">All Heroes</a></li>
+          <li><a href="https://youtu.be/dQw4w9WgXcQ?si=-ioxpiJ4S2o21HjU">Diamond Gratis</a></li>
+        </ul>
+      </div>
+
+      <!-- Popular Skins -->
+      <div class="footer-column">
+        <h3>Popular Skins</h3>
+        <ul class="footer-links">
+          <li><a href="skin-detail.html?hero=joy-champion">Joy Champion</a></li>
+          <li><a href="skin-detail.html?hero=layla-nexus-sea">Layla Nexus Sea</a></li>
+          <li><a href="skin-detail.html?hero=guinevere-aspirant">Guinevere Aspirant</a></li>
+          <li><a href="skin-detail.html?hero=kagura-special">Kagura Special</a></li>
+          <li><a href="skin-detail.html?hero=alucard-epic">Alucard Epic</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Section -->
+      <div class="footer-column">
+        <h3>Support Us</h3>
+        <div class="support-section">
+          <div class="support-links">
+            <a href="https://saweria.co/SchwanzSigma" target="_blank" class="support-link">
+              <img src="https://ik.imagekit.io/Schwanzml2/Picsart_25-09-02_07-10-54-237.png?updatedAt=1756771883472" alt="Saweria">
+              <span>Saweria</span>
+            </a>
+            <a href="https://tako.id/SchwanzML" target="_blank" class="support-link">
+              <img src="https://ik.imagekit.io/Schwanzml2/login.png?updatedAt=1756771977002" alt="Tako ID">
+              <span>Tako ID</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        Copyright: ©2025 <strong>Schwanz ML</strong> · Moonton · All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load detail.js untuk data skin -->
+  <script src="detail.js"></script>
+
+<script>
+function toggleMenu(hamburger) {
+  const menu = document.getElementById('menu');
+  hamburger.classList.toggle('active');
+  if (!menu.classList.contains('show')) {
+    menu.style.display = 'block';
+    setTimeout(() => menu.classList.add('show'), 10);
+  } else {
+    menu.classList.remove('show');
+    hamburger.classList.remove('active');
+    setTimeout(() => menu.style.display = 'none', 300);
+  }
+}
+
+function toggleTheme() {
+  const body = document.body;
+  body.classList.toggle('dark-mode');
+  
+  if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+  
+  // Tutup menu setelah memilih tema
+  const hamburger = document.querySelector('.hamburger');
+  const menu = document.getElementById('menu');
+  hamburger.classList.remove('active');
+  menu.classList.remove('show');
+  setTimeout(() => menu.style.display = 'none', 300);
+}
+
+// Load saved theme
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+}
+
+// Fungsi untuk animasi tombol download
+function animateDownloadButton(button) {
+  // Simpan teks asli
+  const originalText = button.innerHTML;
+  
+  // Tambahkan class loading
+  button.classList.add('loading');
+  
+  // Simulasikan proses download
+  setTimeout(() => {
+    button.classList.remove('loading');
+    button.classList.add('downloading');
+    
+    // Ganti teks dengan animasi success
+    button.innerHTML = `
+      <span class="success-text">✓ Berhasil</span>
+      <span class="check-icon">✓</span>
+    `;
+    
+    // Kembalikan ke state semula setelah 2 detik
+    setTimeout(() => {
+      button.classList.remove('downloading');
+      button.innerHTML = originalText;
+      
+      // Tambahkan efek pulse untuk menarik perhatian
+      button.classList.add('pulse');
+      setTimeout(() => {
+        button.classList.remove('pulse');
+      }, 2000);
+      
+    }, 2000);
+    
+  }, 1500);
+}
+
+document.addEventListener('click', function (event) {
+  const menu = document.getElementById('menu');
+  const hamburger = document.querySelector('.hamburger');
+  if (!hamburger.contains(event.target) && !menu.contains(event.target)) {
+    if (menu.classList.contains('show')) {
+      menu.classList.remove('show');
+      hamburger.classList.remove('active');
+      setTimeout(() => menu.style.display = 'none', 300);
+    }
+  }
+});
+
+// Fungsi untuk menampilkan detail skin
+function displaySkinDetail() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const hero = urlParams.get('hero');
+  const container = document.getElementById("skin-content");
+
+  if (!skinData[hero]) {
+    container.innerHTML = `<div style="padding:20px; color:red; font-weight:bold;">Skin belum tersedia.</div>`;
+  } else {
+    const data = skinData[hero];
+
+    const blockHTML = `
+      <div style="max-width: 700px; margin: 20px auto; border: 1px solid #000; padding: 20px; text-align: center; border-radius: 10px;">
+        <div style="font-weight: bold; font-size: 18px;">${data.name}</div>
+        <div style="color: #000; font-size: 14px;">(download disini)</div>
+        <div style="margin-top: 10px; border-bottom: 1px solid #000; display: inline-block; font-weight: bold;">Short Story</div>
+        <div style="margin-top: 10px; font-size: 14px; line-height: 1.6;">${data.shortStory}</div>
+        <div style="margin-top: 20px; text-align: center; font-style: italic; color: red;">Video preview ada di YouTube.</div>
+      </div>
+      <!-- Featured, Support Voice & Kelebihan Lainnya -->
+      <div style="margin-top: 30px; padding: 0 15px;">
+        <!-- Judul Featured di Tengah -->
+        <div style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px;">
+          Featured
+        </div>
+
+        <div style="max-width: 1000px; margin: 30px auto; padding: 0 20px;">
+          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
+            
+            <!-- Support Voice -->
+            <div style="flex: 1 1 45%; font-size: 11px;">
+              <div style="font-weight: bold; margin-bottom: 5px;">Support Voice</div>
+              <ul style="list-style-type: disc; padding-left: 18px; margin-top: 5px;">
+                <li>Indonesia</li>
+                <li>English</li>
+                <li>English PH</li>
+                <li>Japan</li>
+                <li>Arabic</li>
+                <li>Espanol</li>
+                <li>Portuguse</li>
+                <li>Rusia</li>
+                <li>Turkie</li>
+              </ul>
+            </div>
+
+            <!-- Kelebihan Lainnya -->
+            <div style="flex: 1 1 45%; font-size: 11px;">
+              <div style="font-weight: bold; margin-bottom: 5px;">Kelebihan Lainnya</div>
+              <ul style="list-style-type: disc; padding-left: 18px; margin-top: 5px;">
+                <li>Support grafik low</li>
+                <li>Head Icon</li>
+                <li>Skill Icon</li>
+                <li>Share Background</li>
+                <li>File sudah dikompres</li>
+                <li>Audio Replay</li>
+                <li>Work Classic & Rank</li>
+                <li>No Bug</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Peringatan Bug -->
+        <div style="border: 1px solid red; color: red; font-style: italic; padding: 8px 12px; margin: 20px; border-radius: 8px; font-size: 13px;">
+          Jika ada kerusakan/bug seperti tidak ada suara, tidak ada efek skill dan lain lain, silahkan lapor ke admin 
+          <a href="https://youtu.be/KsB99Sf_fX0?si=RGSGpbYvZ2q3P0Ch" target="_blank" style="text-decoration: underline; color: red;">disini</a>.
+        </div>
+
+        <!-- Peringatan Watermark -->
+        <div style="border: 1px solid #1E90FF; color: #1E90FF; font-style: italic; padding: 8px 12px; margin: -10px 20px 20px; border-radius: 8px; font-size: 13px;">
+          File berisi watermark @SchwanzML, jadi yang mau reupload silahkan cantumkan channel saya di deskripsi,makasih.
+        </div>
+
+        <!-- Judul Tabel & Tanggal -->
+        <div style="text-align: center; font-weight: 600; font-size: 18px; margin-bottom: 5px;">
+          Tabel List ${data.name}
+        </div>
+        <div style="text-align: center; font-size: 13px; color: #555; margin-bottom: 25px;">
+          Last Updated <u>${data.date}</u>
+        </div>
+      </div>
+    `;
+
+    const tableHTML = `
+      <div style="overflow-x: auto; margin-top: 30px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Replace</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+           ${data.replaces.map((name, i) => `
+  <tr>
+    <td>${name}</td>
+    <td>
+      <a href="${data.downloads[i] || '#'}" target="_blank" class="download-btn" onclick="event.preventDefault(); animateDownloadButton(this); setTimeout(() => { if('${data.downloads[i]}' !== '#') window.open('${data.downloads[i]}', '_blank'); }, 2000);">
+        <span class="download-text">✓ Download</span>
+      </a>
+    </td>
+  </tr>
+`).join("")}
+          </tbody>
+        </table>
+      </div>
+      <div style="margin: 15px; font-size: 12px; font-style: italic; color: #333;">🗣️ Pilih sesuai kebutuhan.<br>❌ Jika download malah balik ke halaman, berarti file belum tersedia.</div>
+    `;
+
+    container.innerHTML = blockHTML + tableHTML;
+
+    // Tambahkan pulse animation ke semua tombol download setelah render
+    setTimeout(() => {
+      document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.classList.add('pulse');
+      });
+    }, 1000);
+  }
+}
+
+// Panggil fungsi untuk menampilkan detail skin saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme(); // Load saved theme
+  displaySkinDetail();
+});
+
+function handleSearch(keyword) {
+  const resultsContainer = document.getElementById("search-results");
+  const searchTerm = keyword.trim().toLowerCase();
+
+  if (searchTerm.length === 0) {
+    resultsContainer.innerHTML = "";
+    return;
+  }
+
+  let html = "";
+  for (const key in skinData) {
+    const skin = skinData[key];
+    if (skin.name.toLowerCase().includes(searchTerm)) {
+      html += `
+        <div style="border:1px solid #ccc; border-radius:10px; margin:15px auto; max-width:600px; padding:15px;">
+          <div style="font-weight:bold; font-size:16px; color:#1E90FF;">${skin.name}</div>
+          <div style="font-size:14px; margin-top:5px;">Tanggal rilis: ${skin.date}</div>
+          <div style="margin-top:10px;">
+            <a href="skin-detail.html?hero=${key}" class="download-btn">🔍 Lihat Detail</a>
+          </div>
+        </div>`;
+    }
+  }
+
+  resultsContainer.innerHTML = html || `<div style="text-align:center; color:red;">Tidak ditemukan.</div>`;
+}
+
+function performSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const keyword = searchInput.value.trim().toLowerCase();
+  
+  if (keyword) {
+    handleSearch(keyword);
+  }
+}
+
+window.addEventListener("pageshow", function () {
+  // Blur elemen aktif (hilangkan fokus tombol yang bikin biru)
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
+  // Scroll ke atas (jika perlu reset posisi)
+  window.scrollTo(0, 0);
+});
+
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    const keyword = document.getElementById('searchInput').value.trim();
+    if (keyword) {
+      window.location.href = `index.html?search=${encodeURIComponent(keyword)}`;
+    }
+  }
+}
+</script>
+</body>
+</html>

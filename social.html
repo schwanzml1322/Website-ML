@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schwanz ML - Social</title>
+  <style>
+    :root {
+      --primary: #1E90FF;
+      --primary-dark: #0066CC;
+      --secondary: #FF6B35;
+      --dark: #1A1A2E;
+      --darker: #0F0F1A;
+      --light: #F9F9F9;
+      --gray: #E5E5E5;
+      --text: #333333;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      color: var(--light);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.light-mode {
+      background: #f9f9f9;
+      color: #333333;
+    }
+
+    /* Header Styles */
+    .header {
+      background: rgba(26, 26, 46, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(30, 144, 255, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 20px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .light-mode .header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+    }
+    
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .site-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .ml-blue {
+      color: var(--primary);
+      text-shadow: 0 0 8px rgba(30, 144, 255, 0.7);
+    }
+
+    .light-mode .ml-blue {
+      color: #1E90FF;
+      text-shadow: none;
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-link {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .light-mode .nav-link {
+      color: #333;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(30, 144, 255, 0.1);
+    }
+    
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 15px;
+      right: 15px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+    }
+    
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--light);
+      border-radius: 3px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    .light-mode .hamburger span {
+      background-color: #333;
+    }
+    
+    /* Animasi hamburger saat aktif */
+    .hamburger.active {
+      transform: rotate(180deg);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg) scaleX(1.1);
+      background-color: #1E90FF;
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg) scaleX(1.1);
+      background-color: #1E90FF;
+    }
+
+    /* Efek hover pada hamburger */
+    .hamburger:hover span {
+      background-color: #1E90FF;
+    }
+
+    .hamburger.active:hover span {
+      background-color: #0d6efd;
+    }
+
+    .menu {
+      display: none;
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      background-color: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(30, 144, 255, 0.2);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .light-mode .menu {
+      background-color: white;
+      border-color: #ddd;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .menu.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    
+    .menu a {
+      display: block;
+      padding: 12px 16px;
+      color: var(--light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .light-mode .menu a {
+      color: #333;
+      border-bottom-color: #eee;
+    }
+    
+    .menu a:last-child {
+      border-bottom: none;
+    }
+    
+    .menu a:hover {
+      background-color: #1E90FF;
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .light-mode .theme-toggle {
+      border-bottom-color: #eee;
+    }
+    
+    .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .light-mode .theme-toggle:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .theme-toggle:last-child {
+      border-bottom: none;
+    }
+    
+    .theme-switch {
+      position: relative;
+      width: 50px;
+      height: 24px;
+      background-color: #ccc;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      margin-right: 0;
+    }
+
+    .light-mode .theme-switch {
+      background-color: #4da6ff;
+    }
+    
+    .theme-switch-handle {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .light-mode .theme-switch-handle {
+      left: 28px;
+      transform: rotate(360deg);
+    }
+    
+    .theme-icon {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .theme-icon svg {
+      transition: all 0.3s ease;
+      width: 12px;
+      height: 12px;
+    }
+    
+    .sun-icon {
+      color: #ffa500;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .light-mode .sun-icon {
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    .moon-icon {
+      color: #4da6ff;
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .light-mode .moon-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(30, 144, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .light-mode .hero {
+      background: radial-gradient(circle at center, rgba(30, 144, 255, 0.05) 0%, transparent 70%);
+    }
+    
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, var(--primary), #4FC3F7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+    }
+
+    .light-mode .hero h1 {
+      text-shadow: none;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #CCCCCC;
+    }
+
+    .light-mode .hero p {
+      color: #666;
+    }
+    
+    /* Social Section */
+    .social-section {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    
+    .social-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .light-mode .social-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .social-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .social-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(30, 144, 255, 0.3);
+    }
+
+    .light-mode .social-card:hover {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .social-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(30, 144, 255, 0.1);
+      border: 2px solid rgba(30, 144, 255, 0.3);
+    }
+
+    .light-mode .social-icon {
+      background: rgba(30, 144, 255, 0.05);
+      border: 2px solid rgba(30, 144, 255, 0.2);
+    }
+    
+    .social-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .social-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--light);
+    }
+
+    .light-mode .social-card h3 {
+      color: #333;
+    }
+    
+    .social-card p {
+      color: #CCCCCC;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .light-mode .social-card p {
+      color: #666;
+    }
+    
+    .social-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(30, 144, 255, 0.3);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(30, 144, 255, 0.4);
+    }
+    
+    /* Footer */
+    footer {
+      background: rgba(15, 15, 26, 0.9);
+      border-top: 1px solid rgba(30, 144, 255, 0.2);
+      padding: 50px 20px 20px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .light-mode footer {
+      background: linear-gradient(135deg, #1E90FF 0%, #0d6efd 100%);
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .footer-logo span {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 8px;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+    
+    .footer-links a {
+      color: #CCCCCC;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .light-mode .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .support-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #CCCCCC;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .light-mode .support-link {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .support-link:hover {
+      color: var(--primary);
+    }
+    
+    .support-link img {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .footer-copy {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .light-mode .footer-copy {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: rgba(26, 26, 46, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        flex-direction: column;
+        width: 200px;
+        padding: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(30, 144, 255, 0.2);
+      }
+
+      .light-mode .nav-menu {
+        background: white;
+        border-color: #ddd;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      
+      .nav-menu.active {
+        display: flex;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg) scaleX(1.1);
+      }
+      
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg) scaleX(1.1);
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo-container">
+        <div class="logo">
+          <img src="https://ik.imagekit.io/Schwanzml2/4e31c570c83f8efa1921e641afcf5342.jpg?updatedAt=1757980564561" alt="Logo Schwanz ML">
+        </div>
+        <div class="site-title">Schwanz <span class="ml-blue">ML</span></div>
+      </div>
+      
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category.html" class="nav-link">Category</a>
+        <a href="social.html" class="nav-link active">Social</a>
+      </nav>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="category.html">Category</a>
+    <a href="social.html">Social</a>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <div class="theme-switch">
+        <div class="theme-switch-handle">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Connect With Us</h1>
+    <p>Ikuti channel YouTube, dukung kami, dan dapatkan informasi terbaru seputar Mobile Legends</p>
+  </section>
+
+  <!-- Social Section -->
+  <section class="social-section">
+    <h2 class="section-title">Follow & Support</h2>
+    
+    <div class="social-grid">
+      <div class="social-card">
+        <div class="social-icon">
+          <img src="https://ik.imagekit.io/Schwanzml2/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png?updatedAt=1760187883214" alt="YouTube">
+        </div>
+        <h3>YouTube Channel</h3>
+        <p>Subscribe untuk konten MLBB terbaru, tips & trik, dan gameplay menarik</p>
+        <a href="https://youtube.com/@SchwanzML" target="_blank" class="social-btn">Subscribe</a>
+      </div>
+      
+      <div class="social-card">
+        <div class="social-icon">
+          <img src="https://ik.imagekit.io/Schwanzml2/Picsart_25-09-02_07-15-03-007.png?updatedAt=1756772118503" alt="Diamond Gratis">
+        </div>
+        <h3>Diamond Gratis</h3>
+        <p>Kesempatan mendapatkan diamond MLBB secara gratis dengan syarat tertentu</p>
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=-ioxpiJ4S2o21HjU" target="_blank" class="social-btn">Dapatkan</a>
+      </div>
+      
+      <div class="social-card">
+        <div class="social-icon">
+          <img src="https://ik.imagekit.io/Schwanzml2/Picsart_25-09-02_07-10-54-237.png?updatedAt=1756771883472" alt="Saweria">
+        </div>
+        <h3>Support via Saweria</h3>
+        <p>Dukung kami untuk terus membuat konten MLBB yang berkualitas</p>
+        <a href="https://saweria.co/SchwanzSigma" target="_blank" class="social-btn">Donasi</a>
+      </div>
+      
+      <div class="social-card">
+        <div class="social-icon">
+          <img src="https://ik.imagekit.io/Schwanzml2/login.png?updatedAt=1756771977002" alt="Tako ID">
+        </div>
+        <h3>Tako ID</h3>
+        <p>Platform alternatif untuk mendukung konten creator MLBB</p>
+        <a href="https://tako.id/SchwanzML" target="_blank" class="social-btn">Kunjungi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="https://ik.imagekit.io/Schwanzml2/4e31c570c83f8efa1921e641afcf5342.jpg?updatedAt=1757980564561" alt="Logo Schwanz ML">
+          <span>Schwanz <span class="ml-blue">ML</span></span>
+        </div>
+        <p>Platform informasi terpercaya untuk para pemain Mobile Legends. Dapatkan update skin, hero, dan event terbaru.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html">Category</a></li>
+          <li><a href="social.html">Social</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Populer</h3>
+        <ul class="footer-links">
+          <li><a href="skin-detail.html?hero=joy-champion">Joy Champion</a></li>
+          <li><a href="skin-detail.html?hero=layla-nexus-sea">Layla Nexus Sea</a></li>
+          <li><a href="skin-detail.html?hero=guinevere-aspirant">Guinevere Aspirant</a></li>
+          <li><a href="skin-detail.html?hero=kagura-special">Kagura Special</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <a href="https://youtube.com/@SchwanzML" target="_blank" class="support-link">
+          <img src="https://ik.imagekit.io/Schwanzml2/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png?updatedAt=1760187883214">
+          <span>YouTube Channel</span>
+        </a>
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=-ioxpiJ4S2o21HjU" target="_blank" class="support-link">
+          <img src="https://ik.imagekit.io/Schwanzml2/Picsart_25-09-02_07-15-03-007.png?updatedAt=1756772118503" alt="Diamond Gratis">
+          <span>Diamond Gratis</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-copy">
+      Copyright: ©2025 <strong>Schwanz ML</strong> · Moonton · All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const menu = document.getElementById('menu');
+    
+    hamburger.addEventListener('click', () => {
+      if (!hamburger.classList.contains('active')) {
+        hamburger.classList.add('active');
+        menu.style.display = 'block';
+        setTimeout(() => menu.classList.add('show'), 10);
+      } else {
+        hamburger.classList.remove('active');
+        menu.classList.remove('show');
+        setTimeout(() => menu.style.display = 'none', 300);
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+        if (menu.classList.contains('show')) {
+          hamburger.classList.remove('active');
+          menu.classList.remove('show');
+          setTimeout(() => menu.style.display = 'none', 300);
+        }
+      }
+    });
+
+    // Theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle('light-mode');
+      
+      if (body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+      }
+      
+      // Tutup menu setelah memilih tema
+      hamburger.classList.remove('active');
+      menu.classList.remove('show');
+      setTimeout(() => menu.style.display = 'none', 300);
+    }
+
+    // Load saved theme
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+      }
+    }
+
+    // Load theme when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTheme();
+    });
+  </script>
+</body>
+</html>
