@@ -429,4 +429,11 @@ const skins = [
     link: 'skin-detail.html?hero=yin-aot-revamped',
     category: "aot"
   },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/Yin__28Eren_29.webp?updatedAt=1762469782221',
+    name: 'Martis Aot',
+    date: "09-11-2025 18:26",
+    link: 'skin-detail.html?hero=martis-aot-revamped',
+    category: "aot"
+  },
 ];
