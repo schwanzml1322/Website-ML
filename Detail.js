@@ -450,4 +450,13 @@ const skinData = {
     downloads: ["https://sfl.gl/8qinUjxO", "#",
     ]
   },
+  "martis-aot-revamped": {
+    name: "Martis Aot Revamped",
+    date: "09-11-2025",
+    shortStory: "Martis is a fierce warrior from the Ashura clan, born with an unyielding spirit and trained to conquer the legendary “Three Thousand Worlds,” a trial that no Ashura had ever completed. Through sheer determination, relentless combat skill, and an iron will, he defeated every world within the trial, earning the title of “Ashura King.” However, this victory came at a cost—his heart grew cold and consumed by battle lust. Seeking greater challenges, Martis now roams the Land of Dawn, driven by an unshakable desire for glory and supremacy, unstoppable in his pursuit of the ultimate fight.",
+    replaces: ["Default", "Basic",
+    ],
+    downloads: ["https://sfl.gl/EYlNyAI", "#",
+    ]
+  },
 };
