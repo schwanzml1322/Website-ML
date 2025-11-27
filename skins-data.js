@@ -409,14 +409,14 @@ const skins = [
     category: "mcgg"
   },
   {
-    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251016_130700.jpg?updatedAt=1760676058419',
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_222438.jpg',
     name: 'Fredrinn Starlight',
     date: "17-10-2025 11:42",
     link: 'skin-detail.html?hero=fredrinn-starlight',
     category: "starlight"
   },
   {
-    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251018_203821.jpg?updatedAt=1760794755364',
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_222415.jpg',
     name: 'Paquito Epic',
     date: "18-10-2025 20:40",
     link: 'skin-detail.html?hero=paquito-epic',
@@ -430,10 +430,81 @@ const skins = [
     category: "aot"
   },
   {
-    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/Yin__28Eren_29.webp?updatedAt=1762469782221',
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/Martis__28Levi_29.webp?updatedAt=1762687543722',
     name: 'Martis Aot',
     date: "09-11-2025 18:26",
     link: 'skin-detail.html?hero=martis-aot-revamped',
     category: "aot"
   },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221336.jpg',
+    name: 'Cyclops Spongebob',
+    date: "27-11-2025 22:18",
+    link: 'skin-detail.html?hero=cyclops-spobgebob',
+    category: "spongebob"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221337.jpg',
+    name: 'Gloo Patrick',
+    date: "27-11-2025 22:19",
+    link: 'skin-detail.html?hero=gloo-patrick',
+    category: "spongebob"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221447.jpg',
+    name: 'Granger Prime',
+    date: "27-11-2025 22:20",
+    link: 'skin-detail.html?hero=granger-prime',
+    category: "m-series"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221449.jpg',
+    name: 'Granger M7',
+    date: "27-11-2025 22:20",
+    link: 'skin-detail.html?hero=granger-m7',
+    category: "m-series"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221452.jpg',
+    name: 'Clint Soul Vessels',
+    date: "27-11-2025 22:21",
+    link: 'skin-detail.html?hero=clint-soul-vessels',
+    category: "soul-vessels"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221455.jpg',
+    name: 'Benedetta Soul Vessels',
+    date: "27-11-2025 22:22",
+    link: 'skin-detail.html?hero=benedetta-soul-vessels',
+    category: "soul-vessels"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221454.jpg',
+    name: 'Cecilion Soul Vessels',
+    date: "27-11-2025 22:22",
+    link: 'skin-detail.html?hero=cecilion-soul-vessels',
+    category: "soul-vessels"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_222757.jpg',
+    name: 'Kimmy Collector',
+    date: "27-11-2025 22:23",
+    link: 'skin-detail.html?hero=kimmy-collector',
+    category: "collector"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221559.jpg',
+    name: 'Alice Luckybox Revamp',
+    date: "27-11-2025 22:23",
+    link: 'skin-detail.html?hero=alice-luckybox',
+    category: "luckybox"
+  },
+  {
+    img: 'https://ik.imagekit.io/Schwanzml2/File%20Gambar%20ML/20251127_221557.jpg',
+    name: 'Saber Legend Revamp',
+    date: "27-11-2025 22:23",
+    link: 'skin-detail.html?hero=saber-legend',
+    category: "legend"
+  },
+  
 ];
